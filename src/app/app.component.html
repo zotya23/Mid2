@@ -1,0 +1,43 @@
+<head>
+  <title>Mid-century Hungary</title>
+</head>
+<body>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <app-menu
+        (selectedPage)="changePage($event)"
+        [currentPage]="page"
+        *ngIf="page"
+        (onCloseSidenav)="onClose($event, sidenav)"
+        [loggedInUser]="loggedInUser"
+        (onLogout)="logout($event)"
+      ></app-menu>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-toolbar color="black">
+        <div fxHide.gt-xs>
+          <button mat-icon-button (click)="onToggleSidenav(sidenav)">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+
+        <div class="toolbar" >Mid-century Hungary</div>
+        <div class="toolbar" fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+          <ul fxLayout fxLayoutGap="10" class="navigaton-items">
+            <li *ngIf="!loggedInUser"><a routerLink="/login">Login</a></li>
+            <li *ngIf="loggedInUser">
+              <a routerLink="/login" (click)="logout()">Logout</a>
+            </li>
+            <li><a routerLink="/signup">Register</a></li>
+            <li><a routerLink="/main">Main</a></li>
+            <li><a routerLink="/gallery">Inspiration</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+          </ul>
+        </div>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</body>
